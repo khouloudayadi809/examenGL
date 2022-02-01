@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+        Mini_Projet_Noté
+        </title>
+        <meta charset="utf-8">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="fontawesome/css/all.min.css" rel="stylesheet">
+
+
+        <script>
+
+            var xhr= new XMLHttpRequest();
+            var connect="vide";
+
+            function charger(){
+                xhr.open("GET","https://chakerbm.tn/ajax/pfe/pfes.php",true);
+                xhr.send();
+
+                xhr.onreadystatechange=function(){
+                    if  (xhr.readyState == 4 && xhr.status == 200) {
+                    // console.log(xhr.responseXML);
+                    afficher(xhr.responseXML);
+
+                }
+                }
+
+            }
+            function charger_reseaux(){
+                xhr.open("GET","http://chakerbm.tn/ajax/pfe/pfespartypes.php?type=reseaux",true);
+                xhr.send();
+
+                xhr.onreadystatechange=function(){
+                    if  (xhr.readyState == 4 && xhr.status == 200) {
+                    // console.log(xhr.responseXML);
+                    afficher(xhr.responseXML);
+
+                }
+                }
+
+            }
+            function charger_embarques(){
+                xhr.open("GET","http://chakerbm.tn/ajax/pfe/pfespartypes.php?type=Embarques et loT",true);
+                xhr.send();
+
+                xhr.onreadystatechange=function(){
+                    if  (xhr.readyState == 4 && xhr.status == 200) {
+                    // console.log(xhr.responseXML);
+                    afficher(xhr.responseXML);
+
+                }
+                }
+
+            }
+            function charger_dev(){
+                xhr.open("GET","http://chakerbm.tn/ajax/pfe/pfespartypes.php?type=Developpement",true);
+                xhr.send();
+
+                xhr.onreadystatechange=function(){
+                    if  (xhr.readyState == 4 && xhr.status == 200) {
+                    // console.log(xhr.responseXML);
+                    afficher(xhr.responseXML);
+
+                }
+                }
+
+            }
+            function charger_telecom(){
+                xhr.open("GET","http://chakerbm.tn/ajax/pfe/pfespartypes.php?type=Telecom",true);
+                xhr.send();
+
+                xhr.onreadystatechange=function(){
+                    if  (xhr.readyState == 4 && xhr.status == 200) {
+                    // console.log(xhr.responseXML);
+                    afficher(xhr.responseXML);
+
+                }
+                }
+
+            }
+            function afficher(data){
+            var els = data.getElementsByTagName("pfe");
+            var liste = document.getElementById("tableBody");
+            liste.innerHTML="";
+            for( var i=0; i<els.length; i++){
+                var tr=document.createElement('tr');
+                var id=document.createElement('td');
+                var titre=document.createElement('td');
+                var type=document.createElement('td');
+                  
+                id.innerHTML= els[i].getAttribute('id');
+                titre.innerHTML=els[i].getAttribute('titre');
+                type.innerHTML=els[i].getAttribute('type');
+
+                tr.appendChild(id);
+                tr.appendChild(titre);
+                tr.appendChild(type);
+
+                liste.appendChild(tr);
+            }
+            }
+        </script>
+    </head>
+    <body onload="charger()">
+
+        <div class="container">
+            <div class="row">
+                <div class="col  p-3 my-3 bg-primary text-white">
+                    <div class="card-title">
+                    <h1>&emsp;Catalogue des PFEs (ESSAT)</h1>
+                    </div>
+                </div>
+            </div>
+        <div class="container">
+         <div class="row">
+                <div class="col-3">
+                    <div class="list-group">
+                    <a href="#" class="list-group-item active" > <i class="fa fa-th-large"></i> Tous les PFEs
+                    <span class="badge badge-warning badge-pill ">13</span></a>
+                    <a href="#" class="list-group-item "> <i class="fa fa-th-large"></i>  PFEs Télecom
+                        <span class="badge badge-info badge-pill ">3</span></a>
+                    <a href="#" class="list-group-item">  <i class="fa fa-th-large"></i> PFEs Développement
+                        <span class="badge badge-info badge-pill ">4</span></a>
+                    <a href="#" class="list-group-item"> <i class="fa fa-th-large"></i>  PFEs Réseaux
+                        <span class="badge badge-info badge-pill ">3</span></a>
+                    <a href="#" class="list-group-item"> <i class="fa fa-th-large"></i> PFEs Embarqués et lOT
+                        <span class="badge badge-info badge-pill ">3</span></a>
+
+                   </div>
+                 </div>
+
+               <div class="col-9">
+                      <div class="row">
+                     <div class="col-md-12 p-2 my-1 bg-success text-white">
+                        <h5>   &emsp;Liste de PFEs</h5>
+
+                    </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12">
+                            <table class="table" width=100%>
+                               <thead class="bg-light">
+                                <tr>
+                                    <th width="20">ID</th>
+                                    <th width="1000">Titre</th>
+                                    <th width="200">Type</th>
+                                </tr>
+                              </thead>
+                              <tbody id="tableBody">
+
+                              </tbody>
+
+                            </table>
+
+                      </div>
+                     </div>
+        </div>    
+    </div>
+</div>
+</body>
+</html>

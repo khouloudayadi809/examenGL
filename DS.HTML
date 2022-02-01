@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>DS</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container border" >
+        <div class="row mt-3 p-2">
+            <div class="col card card-title bg-primary text-white">
+                <h1>Cours Angular10 (ESSAT) </h1>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-1.5 p-2">
+                <button type="button" class="btn btn-warning mb-2">
+                    <h5>Les chapitres</h5>
+                </button>
+            </div>
+            <div class="col-1.5 p-2">
+                <button type="button" class="btn btn-danger text-white mb-2">
+                    <h5>Les Exercices</h5>
+                </button>
+            </div>
+            <div class="col-2.5 p-2">
+                <button type="button" class="btn btn-info text-white mb-2">
+                    <h5>Les Travaux Pratiques</h5>
+                </button>
+            </div>
+            <div class="col-1.5 p-2">
+                <button type="button" class="btn btn-success text-white mb-2">
+                    <h5>Les Ressources</h5>
+                </button>
+            </div>
+            <div class="col-1.5 p-2">
+                <button type="button" class="btn btn-primary text-white mb-2">
+                    <h5>Les Examens</h5>
+                </button>
+            </div>
+            <div class="col-1 p-2">
+                <button type="button" class="btn btn-secondary text-white mb-2">
+                    <h5>FAQ</h5>
+                </button>
+            </div>
+        </div>
+        <div class="row mt-4 p-3">
+            <div class="col-8 card-title border">
+                <div class="row">
+                    <div class="col-12 card-title bg-light"><br>
+                        <h2>Chapitre 2 : Routage des paths </h2><br>
+                    </div>
+                    <div class="col-12 mt-4 p-3">
+                        <div class="card-title">
+                            <h5>Introduction</h5>
+                        </div>
+                        <div class="card-text ">Dans un framework front-end (comme Angular), il n'est pas souhaitable de
+                            perdre
+                            tout son contexte à chaque changement de page.<br><br> Angular a donc besoin d'un systeme de
+                            routage
+                            pour permettre la navigation à travers différentes pages de votre application.<br><br> Pour
+                            realiser
+                            ce routage, Angular propose le module RouterModule disponible dans la librairie
+                            @angular/router<br>
+                            <br>
+                        </div>
+                        <div class="row mt-4 p-3">
+                            <div class="col-2">&nbsp;</div>
+                            <div class="col-8">
+                                <div
+                                    style="background: #ffffff; overflow:auto;width:auto;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+                                    <pre style="margin: 0; line-height: 125%"><span style="color: #000080; font-weight: bold">import</span>{ NgModule } from <span style="color: #0000FF">&#39;@angular/core&#39;</span>;
+<span style="color: #000080; font-weight: bold">import</span> { Routes, RouterModule } from <span style="color: #0000FF">&#39;@angular/router&#39;</span>;
+<span style="color: #000080; font-weight: bold">const</span> routes: Routes = [];
+@ngModule({
+    imports :[RouterModule.forRoot(routes)],
+    exports :[RouterModule]
+})
+<span style="color: #000080; font-weight: bold">export</span> <span style="color: #000080; font-weight: bold">class</span> appRout ingModule { }
+</pre>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="col-3 ml-2">
+                <div class="row border">
+                    <div class="col-12 card-title bg-light"><br>
+                        <h6>Les Fichiers nécessaires </h6><br>
+                    </div>
+                    <div class="col-12"><br>
+                        <ul>
+                            <li>Exemple Routes</li>
+                            <hr  width="200px">
+                            <li>Exemple Paths</li>
+                            <hr width="200px">
+                            <li>Exemple RouterLink</li>
+                            <hr width="200px">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

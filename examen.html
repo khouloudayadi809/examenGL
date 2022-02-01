@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="fontawesome/css/all.min.css" rel="stylesheet">
+  <title></title>
+  <script>
+    var xhr = new XMLHttpRequest();
+    var connect = "vide";
+
+   function charge() {
+     xhr.open("GET","https://www.essat.tn/exam2020/liste.php",true)
+    xhr.send();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 &&  xhr.status == 200){
+        afficher(xhr.responseXML);
+      }}
+    }
+
+    function envoyer() {
+            var mess = document.getElementById("mess").value;
+            xhr.open("POST", "https://www.essat.tn/exam2020/ajouter.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+            xhr.send("sujet=" + sujet + "&descr=" + desc + "&type" + type + "");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText == "]") {
+                        charge();
+                    }
+                }
+
+            }
+        }
+
+  </script>
+
+
+
+
+
+</head>
+<body onload="charge()">
+
+    <div class="container"> 
+        <div class="row">
+            <div class="col">
+              <div class="col p-3 my-3 bg-info text-primary">
+                <div class="card-title "> </div>
+                      <h1>stackOverflow ESSAT</h1>
+                 </div>
+                 </div>
+
+            </div>
+
+            <div class="row  bg-light">
+               
+                <div class="col-4">
+                    <h2>Ajouter une question</h2>
+                </div>
+                <div class="col-8"></div>
+              </div>
+
+                <div class="row  bg-light">
+                     <div class="col-3">
+                           <form>
+                             <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Sujet</label>
+                            <div class="col-sm-5">
+                              <input type="text" class="form-control" id="text" placeholder="sujet">
+                            </div>
+                             </div>
+                            </form>
+                            </div>
+                        <div class="col-5">
+                            <form>
+                                 <div class="form-group row">
+                                <label for="inputPassword" class="col-sm-3 col-form-label">Description</label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="description" placeholder="description">
+                                </div>
+                                 </div>
+                                </form>
+                                </div>
+                              
+                    
+
+
+                        <div class="col-4">
+                            <form>
+                            <div class="form-group row">
+                                <label for="text" class="col-sm-2 col-form-label">Type</label>
+                                <div class="col-sm-5">
+                                    <select id="inputState" class="form-control">
+                                        <option selected>..Selection..</option>
+                                        <option>...</option>
+                                      </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2" onclick="envoyer()">Enregistrer</button>
+                                </div>
+                                </form>
+                                </div>
+                              
+                            </div>
+                    <br>
+               <div class="row">
+               <div class="col bg-light">
+                <table class="table">
+                  <tr>
+                    <th>ID </th> 
+                    <th>Sujet</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th></th>
+                  </tr>
+
+                  <tr>
+                    <td>12</td>
+                    <td>THreads in java</td>
+                    <td>I went to day asked in interview over the thread concept in java? the question were ...</td>
+                    <td>JAVA</td>
+                    <td><button class="btn btn-danger">supprimer</button></td>
+                  </tr>
+
+                  <tr>
+                    <td>18</td>
+                    <td>How do i unit test jdbc  code in java</td>
+                    <td>I'd like to write some unit  tests for some code that connect to a database , run one or more  queries, and then processes the results </td>
+                    <td>JAVA</td>
+                    <td><button class="btn btn-danger">supprimer</button></td>
+
+                  </tr>
+                  <tr>
+                    <td>24</td>
+                    <td>writing units test in python  how do i start?</td>
+                    <td>I completed my first proper project in python and now my task in to write tests for it Since this is  the first time I did a project , this is the first time i would be writing tests for it </td>
+                    <td>PYTHON</td>
+                    <td><button class="btn btn-danger">supprimer</button></td>
+
+                  </tr>
+
+
+
+
+
+
+
+
+                </table>
+
+               </div>
+               </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

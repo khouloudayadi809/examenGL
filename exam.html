@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="fontawesome/css/all.css">
+<title>Examen</title>
+<script>
+        var xhr = new XMLHttpRequest();
+        var connect = "vide";
+        charge();
+        setInterval(function() {
+            charge();
+        }, 2000);
+
+        function charge() {
+            xhr.open("GET", " https://www.essat.tn/examen2021/liste.php", true);
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                   
+                    afficher(xhr.responseXML);
+
+                }
+            }}
+        function afficher(data){
+            var els=data.getElementsByTagName("stagiaire");
+            var tab=document.getElementById("tab");
+            tab.innerHTML = "";          
+            for(var i=0; i<els.length;i++){
+                var tr =document.createElement("tr");
+                var nom = document.createElement("td");
+                var institut = document.createElement("td");
+                var service = document.createElement("td");
+
+                tr.appendChild(nom);
+                tr.appendChild(institut);
+                tr.appendChild(service);
+
+                sujet.innerHTML = els[i].getAttribute("nom");
+                desc.innerHTML = els[i].getAttribute("institut");
+                type.innerHTML = els[i].getAttribute("service");
+
+                var td4 = document.createElement("td");
+                var id = els[i].getAttribute("id");
+                td4.innerHTML = '<a href="#" onclick="Supprimer(' + id + ')">Supprimer</a>';
+                tr.appendChild(td4);
+
+                tab.appendChild(tr);
+                }
+
+            }  
+            function ajouter(){
+                 
+                 var nom=document.getElementById("nom").value;
+                 var institut=document.getElementById("institut").value;
+                 var service=document.getElementById("service").value;
+                 xhr.open("POST","https://www.essat.tn/examen2021/ajouter.php",true);
+                 xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8");
+                 xhr.send("nom="+nom+"&institut="+institut+"&service="+service);
+                 xhr.onreadystatechange= function(){
+                     if(xhr.readyState==4 && xhr.status==200){
+                         if (xhr.responseText=="1"){
+                             charge();
+                         }
+                     }
+                       
+                     }
+                
+                }
+                function Supprimer(id) {
+                   xhr.open("DELETE","https://www.essat.tn/examen2021/supprimer.php?id=" + id,true );
+                   xhr.send();
+                   xhr.onreadystatechange = function () {
+                   if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                        alert("le stagiaire supprimé avec success!!");
+                          charge();
+                    }
+                    }
+               }  
+               function verif() {
+                    var nom = document.getElementById("nom").value;
+                    var institut = document.getElementById("institut").value;
+                    var service = document.getElementById("service").value;
+                    xhr.open("GET", "http://www.essat.tn/examen2021/liste.php?nom=" +
+                     nom + "&institut=" + institut + "&service=" + service, true);
+                    xhr.send();
+                    xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var data = xhr.responseXML;
+                        console.log(data);
+                        var resultat = data.getElementById("test");
+                        var value = resultat.getAttribute("value");
+                        if (value == "1") {
+                            alert(' votre donne a envoye avec succées !!');
+                        } else {
+                            alert('verifier vos donne!!');
+                        }
+
+                       
+
+                    }
+            }}
+        
+
+
+</script>
+</head>
+<body onload="charge()">
+    <div class="container pt-3" >
+        <div class="row card card-header p-2 mt-3"  style="background-color: #00c3ff; color:teal;">
+            
+                    <h1>Stagiaires MyBetaApps</h1>
+            
+        </div>
+
+        <div class="row card card-title p-2 mt-2" style="background-color: #aaffaa; color:olive">
+            
+                <div class=" col " >
+                    <div class="row">
+                    <h5>Ajouter une question : </h5><br>
+                    </div>  
+                    <div class="row">
+                        <table width="100%">
+                         <tr>
+                             <td>Nom et Prenom:</td><td><input type="text" id="nom" placeholder="Nom"></td>
+                             <td>Institut d'origine:</td><td><input type="text" id="Institut"  placeholder="Institut" style="width: 200px;"></td>
+                             <td>Service de stage:</td><td><select id="service">
+                                <option>--- Selection ---</option>
+                                <option>Développement</option>
+                                <option>DevOps</option>
+                                <option>Autre</option>
+                                </select></td>
+                                <td><button class="btn btn-primary text-white form-controle" onclick="verif()">Enregitrer</button></td>
+                         </tr> </table>
+                    </div>
+                </div>
+            
+        </div>
+        <div class="row">
+            <div class="col card-header bg-ligth">
+                <table width="100%" id="tab">
+                    <tr>
+                        <th>ID</th><th>Nom et Prenom</th><th>Institut d'origine</th><th>Service de stage</th><th></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

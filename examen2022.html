@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="fontawesome/css/all.css">
+<title>Examen</title>
+<script>
+        var xhr = new XMLHttpRequest();
+        var connect = "vide";
+        charge();
+        setInterval(function() {
+            charge();
+        }, 2000);
+
+        function charge() {
+            xhr.open("GET", " http://www.essat.tn/examen2022/liste.php", true);
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                   
+                    afficher(xhr.responseXML);
+
+                }
+            }}
+        function afficher(data){
+            var els=data.getElementsByTagName("question");
+            var tab=document.getElementById("tab");
+            tab.innerHTML = "";          
+            for(var i=0; i<els.length;i++){
+                var tr =document.createElement("tr");
+                var sujet = document.createElement("td");
+                var desc = document.createElement("td");
+                var type = document.createElement("td");
+
+                tr.appendChild(sujet);
+                tr.appendChild(desc);
+                tr.appendChild(type);
+
+                sujet.innerHTML = els[i].getAttribute("sujet");
+                desc.innerHTML = els[i].getAttribute("desc");
+                type.innerHTML = els[i].getAttribute("type");
+
+                var td4 = document.createElement("td");
+                var id = els[i].getAttribute("id");
+                td4.innerHTML = '<a href="#" onclick="Supprimer(' + id + ')">Supprimer</a>';
+                tr.appendChild(td4);
+
+                tab.appendChild(tr);
+                }
+
+            }  
+            function ajouter(){
+                 
+                 var sujet=document.getElementById("sujet").value;
+                 var descr=document.getElementById("descr").value;
+                 var type=document.getElementById("type").value;
+                 xhr.open("POST","https://www.essat.tn/examen2022/ajouter.php",true);
+                 xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8");
+                 xhr.send("sujet="+sujet+"&=descr"+descr+"&=type"+type);
+                 xhr.onreadystatechange= function(){
+                     if(xhr.readyState==4 && xhr.status==200){
+                         if (xhr.responseText=="1"){
+                             charge();
+                         }
+                     }
+                       
+                     }
+                
+                }
+                function Supprimer(id) {
+                   xhr.open("DELETE","https://www.essat.tn/examen2022/supprimer.php?id=" + id,true );
+                   xhr.send();
+                   xhr.onreadystatechange = function () {
+                   if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                        alert("le question supprimé avec success!!");
+                          charge();
+                    }
+                    }
+               }  
+               function verif() {
+                    var sujet = document.getElementById("sujet").value;
+                    var descr = document.getElementById("descr").value;
+                    var type = document.getElementById("type").value;
+                    xhr.open("GET", "http://www.essat.tn/examen2022/liste.php?sujet=" +
+                     sujet + "&descr=" + descr + "&type=" + type, true);
+                    xhr.send();
+                    xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var data = xhr.responseXML;
+                        console.log(data);
+                        var resultat = data.getElementById("test");
+                        var value = resultat.getAttribute("value");
+                        if (value == "1") {
+                            alert(' votre donne a envoye avec succées !!');
+                        } else {
+                            alert('verifier vos donne!!');
+                        }
+
+                       
+
+                    }
+            }}
+        
+
+
+</script>
+</head>
+<body onload="charge()">
+    <div class="container pt-3" >
+        <div class="row card card-header bg-light p-2 mt-3">
+            
+                    <h1>StackOverFlow ESSAT</h1>
+            
+        </div>
+
+        <div class="row card card-title bg-light p-2 mt-2">
+            
+                <div class=" col ">
+                    <div class="row">
+                    <h5>Ajouter une question : </h5><br>
+                    </div>  
+                    <div class="row">
+                        <table width="100%">
+                         <tr>
+                             <th> Sujet :</th><th><input type="text" id="sujet" placeholder="Sujet"></th>
+                             <th>Description :</th><th width="30%"><input type="text" id="descr"  placeholder="Description" style="width: 400px;"></th>
+                             <th>Type :</th><th><select id="type">
+                                <option>** Selection **</option>
+                                <option>Java</option>
+                                <option>HTML</option>
+                                <option>PYTHON</option>
+                                </select></th>
+                                <th><button class="btn btn-dark text-white form-controle" onclick="verif()">Envoyer</button></th>
+                         </tr> </table>
+                    </div>
+                </div>
+            
+        </div>
+        <div class="row">
+            <div class="col card-header bg-ligth">
+                <table width="100%" id="tab">
+                    <tr>
+                        <th>ID</th><th>Sujet</th><th>Description</th><th>Type</th><th></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
